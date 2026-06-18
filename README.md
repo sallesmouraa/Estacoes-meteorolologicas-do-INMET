@@ -1,22 +1,39 @@
-# Estacoes-meteorolologicas-do-INMET
+# 🌦️ Estações Meteorológicas do INMET (BDMEP)
 
-Metadados das estações meteorológicas do INMET (BDMEP).
+Metadados das estações meteorológicas brasileiras do INMET (BDMEP), com pipeline simples para **limpeza**, **validação** e **relatório de qualidade**.
 
-Este repositório contém o arquivo `br_inmet_bdmep_estacao.csv` e scripts para **limpeza** e **validação** dos dados, gerando um relatório de qualidade.
+---
 
-## Estrutura do projeto
+## 📌 Visão geral
 
-- `br_inmet_bdmep_estacao.csv` — base original (raw)
-- `scripts/clean_data.py` — limpeza e enriquecimento (latitude/longitude)
-- `scripts/validate_data.py` — validações de qualidade
-- `reports/data_quality_report.md` — relatório gerado automaticamente
+Este repositório contém o arquivo bruto `br_inmet_bdmep_estacao.csv` e scripts em Python para:
 
-## Requisitos
+- normalizar dados
+- derivar latitude/longitude
+- validar regras de qualidade
+- gerar relatório em Markdown
+
+---
+
+## 📁 Estrutura do projeto
+
+| Caminho | Descrição |
+|---|---|
+| `br_inmet_bdmep_estacao.csv` | Base original (raw) |
+| `scripts/clean_data.py` | Limpeza e enriquecimento (`latitude`, `longitude`) |
+| `scripts/validate_data.py` | Regras de validação e geração de relatório |
+| `reports/data_quality_report.md` | Relatório de qualidade gerado automaticamente |
+
+---
+
+## ⚙️ Requisitos
 
 - Python **3.10+**
 - Sem dependências externas (apenas biblioteca padrão)
 
-## Como executar
+---
+
+## ▶️ Como executar
 
 Na raiz do projeto:
 
@@ -25,35 +42,44 @@ python scripts/clean_data.py
 python scripts/validate_data.py
 ```
 
-## O que cada etapa faz
+---
 
-### 1) Limpeza (`scripts/clean_data.py`)
+## 🧹 Etapa 1 — Limpeza (`scripts/clean_data.py`)
 
-- Lê `br_inmet_bdmep_estacao.csv`
-- Normaliza `altitude` vazia para `NA`
-- Extrai `latitude` e `longitude` do campo `geolocalizacao` no formato `POINT(x y)`
-- Gera `br_inmet_bdmep_estacao_clean.csv`
+A rotina de limpeza:
 
-> Observação: neste projeto, o parser assume o primeiro valor de `POINT(...)` como `latitude` e o segundo como `longitude`, seguindo o padrão já presente na base utilizada.
+- lê `br_inmet_bdmep_estacao.csv`
+- normaliza `altitude` vazia para `NA`
+- extrai `latitude` e `longitude` de `geolocalizacao` no formato `POINT(x y)`
+- gera `br_inmet_bdmep_estacao_clean.csv`
 
-### 2) Validação (`scripts/validate_data.py`)
+> ℹ️ **Observação:** neste projeto, o parser assume o primeiro valor de `POINT(...)` como `latitude` e o segundo como `longitude`, seguindo o padrão adotado na base utilizada.
+
+---
+
+## ✅ Etapa 2 — Validação (`scripts/validate_data.py`)
 
 Valida no arquivo limpo:
 
-- Campos obrigatórios vazios (`id_municipio`, `id_estacao`, `estacao`, `data_fundacao`, `geolocalizacao`)
+- campos obrigatórios vazios (`id_municipio`, `id_estacao`, `estacao`, `data_fundacao`, `geolocalizacao`)
 - `altitude == NA`
-- Datas inválidas (formato `YYYY-MM-DD`)
-- Geolocalizações inválidas (`POINT(...)` malformado)
-- Coordenadas fora de faixa (lat: -90..90, lon: -180..180)
+- datas inválidas (`YYYY-MM-DD`)
+- geolocalizações inválidas (`POINT(...)` malformado)
+- coordenadas fora de faixa (lat: `-90..90`, lon: `-180..180`)
 - IDs de estação duplicados
 
-Ao final, gera `reports/data_quality_report.md`.
+Ao final, gera automaticamente `reports/data_quality_report.md`.
 
-## Saídas geradas
+---
+
+## 📤 Saídas geradas
 
 - `br_inmet_bdmep_estacao_clean.csv`
 - `reports/data_quality_report.md`
 
-## Licença
+---
 
-Este projeto está sob a licença GNU GPL v3. Veja o arquivo [LICENSE](LICENSE).
+## 📄 Licença
+
+Este projeto está sob a licença **GNU GPL v3**.
+Consulte o arquivo [LICENSE](LICENSE).
