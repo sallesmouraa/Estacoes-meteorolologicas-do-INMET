@@ -1,6 +1,24 @@
 # 🌦️ Estações Meteorológicas do INMET (BDMEP)
 
+[![Licença: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![Status](https://img.shields.io/badge/status-ativo-success)
+![Último commit](https://img.shields.io/github/last-commit/sallesmouraa/Estacoes-meteorolologicas-do-INMET)
+
 Metadados das estações meteorológicas brasileiras do INMET (BDMEP), com pipeline simples para **limpeza**, **validação** e **relatório de qualidade**.
+
+---
+
+## 📚 Sumário
+
+- [📌 Visão geral](#-visão-geral)
+- [📁 Estrutura do projeto](#-estrutura-do-projeto)
+- [⚙️ Requisitos](#️-requisitos)
+- [▶️ Como executar](#️-como-executar)
+- [🧹 Etapa 1 — Limpeza (`scripts/clean_data.py`)](#-etapa-1--limpeza-scriptsclean_datapy)
+- [✅ Etapa 2 — Validação (`scripts/validate_data.py`)](#-etapa-2--validação-scriptsvalidate_datapy)
+- [🧾 Exemplo de saída do relatório](#-exemplo-de-saída-do-relatório)
+- [📤 Saídas geradas](#-saídas-geradas)
+- [��� Licença](#-licença)
 
 ---
 
@@ -69,6 +87,24 @@ Valida no arquivo limpo:
 - IDs de estação duplicados
 
 Ao final, gera automaticamente `reports/data_quality_report.md`.
+
+---
+
+## 🧾 Exemplo de saída do relatório
+
+```markdown
+# Relatório de Qualidade dos Dados
+
+Arquivo analisado: `br_inmet_bdmep_estacao_clean.csv`
+
+Total de linhas: **...**
+Altitudes marcadas como `NA`: **...**
+IDs de estação duplicados: **...**
+Datas inválidas: **...**
+Geolocalizações inválidas: **...**
+Coordenadas fora de faixa/derivadas inválidas: **...**
+Linhas com campos obrigatórios vazios: **...**
+```
 
 ---
 
